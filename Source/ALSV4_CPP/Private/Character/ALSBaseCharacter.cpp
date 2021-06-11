@@ -55,7 +55,8 @@ void AALSBaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 	PlayerInputComponent->BindAction("JumpAction", IE_Pressed, this, &AALSBaseCharacter::JumpPressedAction);
 	PlayerInputComponent->BindAction("JumpAction", IE_Released, this, &AALSBaseCharacter::JumpReleasedAction);
 
-	PlayerInputComponent->BindAction("StanceAction", IE_Pressed, this, &AALSBaseCharacter::StancePressedAction);
+	if (InputSettings.bCanCrouch)
+		PlayerInputComponent->BindAction("StanceAction", IE_Pressed, this, &AALSBaseCharacter::StancePressedAction);
 	if (InputSettings.bCanWalk)
 		PlayerInputComponent->BindAction("WalkAction", IE_Pressed, this, &AALSBaseCharacter::WalkPressedAction);
 	if (InputSettings.bCanTriggerRagdoll)
@@ -1372,23 +1373,23 @@ void AALSBaseCharacter::JumpReleasedAction()
 	StopJumping();
 }
 
-void AALSBaseCharacter::SprintPressedAction()
+void AALSBaseCharacter::SprintPressedAction_Implementation()
 {
 	SetDesiredGait(EALSGait::Sprinting);
 }
 
-void AALSBaseCharacter::SprintReleasedAction()
+void AALSBaseCharacter::SprintReleasedAction_Implementation()
 {
 	SetDesiredGait(EALSGait::Running);
 }
 
-void AALSBaseCharacter::AimPressedAction()
+void AALSBaseCharacter::AimPressedAction_Implementation()
 {
 	// AimAction: Hold "AimAction" to enter the aiming mode, release to revert back the desired rotation mode.
 	SetRotationMode(EALSRotationMode::Aiming);
 }
 
-void AALSBaseCharacter::AimReleasedAction()
+void AALSBaseCharacter::AimReleasedAction_Implementation()
 {
 	if (ViewMode == EALSViewMode::ThirdPerson)
 	{
@@ -1441,7 +1442,7 @@ void AALSBaseCharacter::OnSwitchCameraMode()
 }
 
 
-void AALSBaseCharacter::StancePressedAction()
+void AALSBaseCharacter::StancePressedAction_Implementation()
 {
 	// Stance Action: Press "Stance Action" to toggle Standing / Crouching, double tap to Roll.
 
@@ -1489,7 +1490,7 @@ void AALSBaseCharacter::StancePressedAction()
 	// Notice: MovementState == EALSMovementState::InAir case is removed
 }
 
-void AALSBaseCharacter::WalkPressedAction()
+void AALSBaseCharacter::WalkPressedAction_Implementation()
 {
 	if (DesiredGait == EALSGait::Walking)
 	{

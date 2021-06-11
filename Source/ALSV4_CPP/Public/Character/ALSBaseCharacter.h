@@ -400,13 +400,20 @@ protected:
 
 	UFUNCTION(BlueprintNativeEvent, Category = "Input")
 		void SprintPressedAction();
+	virtual void SprintPressedAction_Implementation();
 
 	UFUNCTION(BlueprintNativeEvent, Category = "Input")
 		void SprintReleasedAction();
+	virtual void SprintReleasedAction_Implementation();
 
-	void AimPressedAction();
 
-	void AimReleasedAction();
+	UFUNCTION(BlueprintNativeEvent, Category = "Input")
+		void AimPressedAction();
+	virtual void AimPressedAction_Implementation();
+
+	UFUNCTION(BlueprintNativeEvent, Category = "Input")
+		void AimReleasedAction();
+	virtual void AimReleasedAction_Implementation();
 
 	void CameraPressedAction();
 
@@ -414,9 +421,13 @@ protected:
 
 	void OnSwitchCameraMode();
 
-	void StancePressedAction();
+	UFUNCTION(BlueprintNativeEvent, Category = "Input")
+		void StancePressedAction();
+	virtual void StancePressedAction_Implementation();
 
-	void WalkPressedAction();
+	UFUNCTION(BlueprintNativeEvent, Category = "Input")
+		void WalkPressedAction();
+	virtual void WalkPressedAction_Implementation();
 
 	void RagdollPressedAction();
 
@@ -496,7 +507,7 @@ protected:
 	FDataTableRowHandle MovementModel;
 
 	/** Input Settings*/
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "ALS|Input Settings")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "ALS|Input")
 	FALSInputSettings InputSettings;
 
 	/** Essential Information */
